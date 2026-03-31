@@ -12,15 +12,22 @@ app.post("/api/login-monitor", (req, res) => {
     req.headers["x-forwarded-for"]?.split(",")[0] ||
     req.socket.remoteAddress;
 
-  console.log("Login detected:");
-  console.log("User:", username);
-  console.log("IP:", ip);
-  console.log("Time:", new Date().toLocaleString());
-  console.log("--------------------");
+  const log = {
+    user: username,
+    ip: ip,
+    time: new Date().toLocaleString()
+  };
+
+  console.log("⚡ LOGIN DETECTED ⚡");
+  console.log(log);
+  console.log("----------------------");
 
   res.json({ success: true });
 });
 
-app.listen(5000, () => {
-  console.log("Server running on http://localhost:5000");
+// IMPORTANT FOR RENDER
+const PORT = process.env.PORT || 5000;
+
+app.listen(PORT, () => {
+  console.log(`🚀 Server running on port ${PORT}`);
 });
